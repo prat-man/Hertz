@@ -1,8 +1,10 @@
 package in.pratanumandal.hertz.gui.core;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import org.apache.commons.io.FilenameUtils;
@@ -13,11 +15,13 @@ import java.util.Objects;
 public class Track {
 
     private final File file;
+    private final Media media;
 
-    private SimpleStringProperty title;
-    private SimpleStringProperty artist;
-    private SimpleStringProperty album;
-    private SimpleStringProperty year;
+    private final SimpleStringProperty title;
+    private final SimpleStringProperty artist;
+    private final SimpleStringProperty album;
+    private final SimpleStringProperty year;
+    private final SimpleObjectProperty<Image> albumArt;
 
     public Track(File file) {
         this.file = file;
@@ -26,10 +30,11 @@ public class Track {
         this.artist = new SimpleStringProperty();
         this.album = new SimpleStringProperty();
         this.year = new SimpleStringProperty();
+        this.albumArt = new SimpleObjectProperty<>();
 
-        Media media = new Media(file.toURI().toString());
+        this.media = new Media(file.toURI().toString());
 
-        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
+        this.media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if (change.wasAdded()) {
                 String key = change.getKey();
                 Object value = change.getValueAdded();
@@ -50,19 +55,21 @@ public class Track {
                     case "year":
                         this.year.set(String.valueOf(value));
                         break;
+
+                    case "image":
+                        this.albumArt.set((Image) value);
+                        break;
                 }
             }
         });
-
-        try {
-            new MediaPlayer(media);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public File getFile() {
         return file;
+    }
+
+    public Media getMedia() {
+        return media;
     }
 
     public String getTitle() {
@@ -95,6 +102,14 @@ public class Track {
 
     @FXML public SimpleStringProperty yearProperty() {
         return year;
+    }
+
+    public Image getAlbumArt() {
+        return albumArt.get();
+    }
+
+    @FXML public SimpleObjectProperty<Image> albumArtProperty() {
+        return albumArt;
     }
 
     @Override

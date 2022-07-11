@@ -380,33 +380,11 @@ public class MainController extends AbstractController {
     private void playTrack() {
         stopTrack();
 
-        Media media = new Media(track.getFile().toURI().toString());
+        Media media = track.getMedia();
 
-        showAlbumArt(null);
-
-        this.title.setText(FilenameUtils.removeExtension(track.getFile().getName()));
-        this.artist.setText("");
-
-        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-            if (change.wasAdded()) {
-                String key = change.getKey();
-                Object value = change.getValueAdded();
-                switch (key) {
-                    case "title":
-                        this.title.setText(String.valueOf(value));
-                        updateLyrics();
-                        break;
-
-                    case "artist":
-                        this.artist.setText(String.valueOf(value));
-                        break;
-
-                    case "image":
-                        showAlbumArt((Image) value);
-                        break;
-                }
-            }
-        });
+        this.title.setText(track.getTitle());
+        this.artist.setText(track.getArtist());
+        showAlbumArt(track.getAlbumArt());
 
         mediaPlayer = new MediaPlayer(media);
 
@@ -419,6 +397,7 @@ public class MainController extends AbstractController {
         });
 
         showVisualization();
+        updateLyrics();
 
         mediaPlayer.currentTimeProperty().addListener((obs) -> {
             updateSeekBar();
@@ -471,10 +450,10 @@ public class MainController extends AbstractController {
 
             mediaPlayer.setAudioSpectrumListener(null);
             clearVisualization();
+            resetLyrics();
 
             resetSeekBar();
             resetTime();
-            resetLyrics();
 
             playPauseButton.getStyleClass().removeAll("pause");
             playPauseButton.getStyleClass().add("play");

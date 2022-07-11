@@ -2,13 +2,14 @@ package in.pratanumandal.hertz.gui.core;
 
 import in.pratanumandal.hertz.gui.utils.GUIUtils;
 import in.pratanumandal.hertz.gui.utils.detachabletabs.TabPaneDetacher;
+import in.pratanumandal.hertz.gui.visualization.AmoebaVisualization;
 import in.pratanumandal.hertz.gui.visualization.BarsVisualization;
 import in.pratanumandal.hertz.gui.visualization.FireVisualization;
 import in.pratanumandal.hertz.gui.visualization.Visualizations;
 import in.pratanumandal.hertz.gui.visualization.WavesVisualization;
-import in.pratanumandal.hertz.utils.lyrics.Genius;
 import in.pratanumandal.hertz.utils.Utils;
 import in.pratanumandal.hertz.utils.debouncer.Debouncer;
+import in.pratanumandal.hertz.utils.lyrics.Genius;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -561,6 +562,12 @@ public class MainController extends AbstractController {
     }
 
     @FXML
+    public void amoebaVisualization() {
+        this.visualization = Visualizations.AMOEBA;
+        showVisualization();
+    }
+
+    @FXML
     public void barsVisualization() {
         this.visualization = Visualizations.BARS;
         showVisualization();
@@ -587,6 +594,10 @@ public class MainController extends AbstractController {
                 case NONE:
                     mediaPlayer.setAudioSpectrumListener(null);
                     clearVisualization();
+                    break;
+
+                case AMOEBA:
+                    mediaPlayer.setAudioSpectrumListener(new AmoebaVisualization(mediaPlayer, canvas));
                     break;
 
                 case BARS:

@@ -57,7 +57,7 @@ public class Track {
         try {
             new MediaPlayer(media);
         } catch(Exception e) {
-            // DO NOTHING
+            e.printStackTrace();
         }
     }
 

@@ -129,11 +129,11 @@
                         <CheckMenuItem fx:id="lyricsMenu" mnemonicParsing="false" onAction="#toggleLyrics" selected="true" text="Lyrics" />
                                 <Menu mnemonicParsing="false" text="Visualizations">
                                     <items>
-                                        <RadioMenuItem mnemonicParsing="false" onAction="#noVisualization" text="None">
-                                            <toggleGroup>
-                                                <ToggleGroup fx:id="visualizations" />
-                                            </toggleGroup>
-                                        </RadioMenuItem>
+                                        <fx:define>
+                                            <ToggleGroup fx:id="visualizations" />
+                                        </fx:define>
+                                        <RadioMenuItem mnemonicParsing="false" onAction="#noVisualization" text="None" toggleGroup="$visualizations" />
+                                        <RadioMenuItem mnemonicParsing="false" onAction="#amoebaVisualization" text="Amoeba" toggleGroup="$visualizations" />
                                         <RadioMenuItem mnemonicParsing="false" onAction="#barsVisualization" selected="true" text="Bars" toggleGroup="$visualizations" />
                                         <RadioMenuItem mnemonicParsing="false" onAction="#fireVisualization" text="Fire" toggleGroup="$visualizations" />
                                         <RadioMenuItem mnemonicParsing="false" onAction="#wavesVisualization" text="Waves" toggleGroup="$visualizations" />

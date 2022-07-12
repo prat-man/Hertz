@@ -15,6 +15,7 @@ module in.pratanumandal.hertz {
     requires GeniusLyricsAPI;
 
 
-    opens in.pratanumandal.hertz.gui.core to javafx.base, javafx.fxml, javafx.graphics;
     exports in.pratanumandal.hertz;
+    opens in.pratanumandal.hertz.common to javafx.base, javafx.fxml, javafx.graphics;
+    opens in.pratanumandal.hertz.controller to javafx.base, javafx.fxml, javafx.graphics;
 }

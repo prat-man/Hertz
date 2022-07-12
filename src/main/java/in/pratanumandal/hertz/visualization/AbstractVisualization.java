@@ -1,4 +1,4 @@
-package in.pratanumandal.hertz.gui.visualization;
+package in.pratanumandal.hertz.visualization;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.media.AudioSpectrumListener;

@@ -1,12 +1,13 @@
-package in.pratanumandal.hertz.gui.core;
+package in.pratanumandal.hertz.controller;
 
-import in.pratanumandal.hertz.gui.utils.GUIUtils;
-import in.pratanumandal.hertz.gui.utils.detachabletabs.TabPaneDetacher;
-import in.pratanumandal.hertz.gui.visualization.AmoebaVisualization;
-import in.pratanumandal.hertz.gui.visualization.BarsVisualization;
-import in.pratanumandal.hertz.gui.visualization.FireVisualization;
-import in.pratanumandal.hertz.gui.visualization.Visualizations;
-import in.pratanumandal.hertz.gui.visualization.WavesVisualization;
+import in.pratanumandal.hertz.common.Track;
+import in.pratanumandal.hertz.utils.GUIUtils;
+import in.pratanumandal.hertz.utils.detachabletabs.TabPaneDetacher;
+import in.pratanumandal.hertz.visualization.AmoebaVisualization;
+import in.pratanumandal.hertz.visualization.BarsVisualization;
+import in.pratanumandal.hertz.visualization.FireVisualization;
+import in.pratanumandal.hertz.visualization.Visualizations;
+import in.pratanumandal.hertz.visualization.WavesVisualization;
 import in.pratanumandal.hertz.utils.Utils;
 import in.pratanumandal.hertz.utils.debouncer.Debouncer;
 import in.pratanumandal.hertz.utils.lyrics.Genius;
@@ -16,7 +17,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -54,7 +54,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;

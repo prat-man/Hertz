@@ -29,7 +29,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
 
-<BorderPane fx:id="rootPane" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="in.pratanumandal.hertz.gui.core.MainController">
+<BorderPane fx:id="rootPane" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="in.pratanumandal.hertz.controller.MainController">
     <center>
         <TabPane fx:id="tabPane" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="25.0" tabMinWidth="100.0" BorderPane.alignment="CENTER">
             <tabs>

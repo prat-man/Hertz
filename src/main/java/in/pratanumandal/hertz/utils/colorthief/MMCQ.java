@@ -1,4 +1,4 @@
-package in.pratanumandal.hertz.gui.utils.colorthief;
+package in.pratanumandal.hertz.utils.colorthief;
 
 /*
  * Java Color Thief

@@ -1,23 +1,27 @@
-package in.pratanumandal.hertz.gui.visualization;
+package in.pratanumandal.hertz.visualization;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
+import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+import org.apache.commons.math3.exception.OutOfRangeException;
 
-public class BarsVisualization extends AbstractVisualization {
+public class WavesVisualization extends AbstractVisualization {
 
     public static final int SPECTRUM_THRESHOLD = -70;
     public static final double SPECTRUM_INTERVAL = 0.05;
     public static final int FREQUENCIES = 1000;
     public static final int BANDS = 50;
-    public static final double INTER_BAND_SPACE = 1.0;
 
     private double[] buffer;
-    private double[] doubleBuffer;
 
-    public BarsVisualization(MediaPlayer mediaPlayer, Canvas canvas) {
+    public WavesVisualization(MediaPlayer mediaPlayer, Canvas canvas) {
         super(mediaPlayer, canvas);
     }
 
@@ -28,9 +32,8 @@ public class BarsVisualization extends AbstractVisualization {
         mediaPlayer.setAudioSpectrumInterval(SPECTRUM_INTERVAL);
         mediaPlayer.setAudioSpectrumNumBands(FREQUENCIES);
 
-        // initialize buffers
+        // initialize buffer
         this.buffer = new double[BANDS];
-        this.doubleBuffer = new double[BANDS];
     }
 
     @Override
@@ -46,15 +49,22 @@ public class BarsVisualization extends AbstractVisualization {
             if (bandMagnitudes[x] > buffer[x])
                 buffer[x] = bandMagnitudes[x];
             else buffer[x] -= 1.0;
-
-            if (bandMagnitudes[x] > doubleBuffer[x])
-                doubleBuffer[x] = bandMagnitudes[x];
-            else doubleBuffer[x] -= 0.5;
         }
 
         // calculate factors
         double xFactor = canvas.getWidth() / BANDS;
         double yFactor = canvas.getHeight() / (-mediaPlayer.getAudioSpectrumThreshold());
+
+        // interpolate to create smooth plot
+        double[] bufferX = new double[buffer.length + 1];
+        double[] bufferY = new double[buffer.length + 1];
+        for (int x = 0; x < buffer.length + 1; x++) {
+            bufferX[x] = x * xFactor;
+            if (x < buffer.length) bufferY[x] = buffer[x];
+        }
+
+        SplineInterpolator interpolator = new SplineInterpolator();
+        PolynomialSplineFunction function = interpolator.interpolate(bufferX, bufferY);
 
         // render the visualization
         Platform.runLater(() -> {
@@ -65,34 +75,31 @@ public class BarsVisualization extends AbstractVisualization {
             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
             // initialize colors
-            gc.setFill(Color.GREENYELLOW);
-            gc.setStroke(Color.WHITE);
+            Stop[] stops = new Stop[] {
+                    new Stop(0.0, Color.CYAN),
+                    new Stop(1.0, Color.BLUE)
+            };
+            RadialGradient gradient = new RadialGradient(0, 0, 0.5, 1.0, 1.0, true, CycleMethod.NO_CYCLE, stops);
+            gc.setFill(gradient);
 
-            // paint the bars
+            // paint the waves
             gc.beginPath();
-            for (int x = 0; x < BANDS; x++) {
-                if (buffer[x] > 1) {
-                    gc.rect(x * xFactor,
-                            canvas.getHeight() - buffer[x] * yFactor,
-                            xFactor - INTER_BAND_SPACE,
-                            buffer[x] * yFactor);
+
+            gc.moveTo(0, canvas.getHeight());
+
+            for (int x = 0; x < canvas.getWidth(); x++) {
+                try {
+                    gc.lineTo(x, canvas.getHeight() - function.value(x) * yFactor);
+                }
+                catch (OutOfRangeException e) {
+                    break;
                 }
             }
+
+            gc.lineTo(canvas.getWidth(), canvas.getHeight());
+
             gc.closePath();
             gc.fill();
-
-            // paint the dashes
-            gc.beginPath();
-            for (int x = 0; x < BANDS; x++) {
-                if (doubleBuffer[x] > 1) {
-                    gc.moveTo(x * xFactor + 1.0,
-                            canvas.getHeight() - doubleBuffer[x] * yFactor);
-                    gc.lineTo((x + 1) * xFactor - INTER_BAND_SPACE - 1.0,
-                            canvas.getHeight() - doubleBuffer[x] * yFactor);
-                }
-            }
-            gc.closePath();
-            gc.stroke();
         });
     }
 

@@ -1,7 +1,8 @@
-package in.pratanumandal.hertz.gui.core;
+package in.pratanumandal.hertz;
 
 import in.pratanumandal.hertz.common.Constants;
-import in.pratanumandal.hertz.gui.utils.GUIUtils;
+import in.pratanumandal.hertz.controller.MainController;
+import in.pratanumandal.hertz.utils.GUIUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

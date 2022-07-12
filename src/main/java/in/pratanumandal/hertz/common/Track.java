@@ -1,4 +1,4 @@
-package in.pratanumandal.hertz.gui.core;
+package in.pratanumandal.hertz.common;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -6,7 +6,6 @@ import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;

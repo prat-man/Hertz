@@ -1,4 +1,4 @@
-package in.pratanumandal.hertz.gui.utils.detachabletabs;
+package in.pratanumandal.hertz.utils.detachabletabs;
 
 /*
  * Copyright 2014 Jens Deters.
@@ -16,7 +16,7 @@ package in.pratanumandal.hertz.gui.utils.detachabletabs;
  * limitations under the License.
  */
 
-import in.pratanumandal.hertz.gui.utils.GUIUtils;
+import in.pratanumandal.hertz.utils.GUIUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;

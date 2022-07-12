@@ -1,4 +1,4 @@
-package in.pratanumandal.hertz.gui.utils.detachabletabs;
+package in.pratanumandal.hertz.utils.detachabletabs;
 
 /*
  * Copyright 2014 Jens Deters.

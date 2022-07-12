@@ -1,4 +1,4 @@
-package in.pratanumandal.hertz.gui.core;
+package in.pratanumandal.hertz.controller;
 
 import javafx.stage.Stage;
 

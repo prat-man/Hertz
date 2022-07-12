@@ -1,4 +1,4 @@
-package in.pratanumandal.hertz.gui.utils.colorthief;
+package in.pratanumandal.hertz.utils.colorthief;
 
 /*
  * Java Color Thief
@@ -18,7 +18,7 @@ package in.pratanumandal.hertz.gui.utils.colorthief;
  * available at http://lokeshdhakar.com/projects/color-thief/
  */
 
-import in.pratanumandal.hertz.gui.utils.colorthief.MMCQ.CMap;
+import in.pratanumandal.hertz.utils.colorthief.MMCQ.CMap;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;

@@ -1,6 +1,6 @@
-package in.pratanumandal.hertz.gui.utils;
+package in.pratanumandal.hertz.utils;
 
-import in.pratanumandal.hertz.gui.utils.colorthief.ColorThief;
+import in.pratanumandal.hertz.utils.colorthief.ColorThief;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;

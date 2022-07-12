@@ -41,19 +41,23 @@ public class Track {
 
                 switch (key) {
                     case "title":
-                        this.title.set(String.valueOf(value));
+                        String title = String.valueOf(value);
+                        if (!title.isBlank()) this.title.set(title);
                         break;
 
                     case "artist":
-                        this.artist.set(String.valueOf(value));
+                        String artist = String.valueOf(value);
+                        if (!artist.isBlank()) this.artist.set(artist);
                         break;
 
                     case "album":
-                        this.album.set(String.valueOf(value));
+                        String album = String.valueOf(value);
+                        if (!album.isBlank()) this.album.set(album);
                         break;
 
                     case "year":
-                        this.year.set(String.valueOf(value));
+                        String year = String.valueOf(value);
+                        if (!year.isBlank()) this.year.set(year);
                         break;
 
                     case "image":

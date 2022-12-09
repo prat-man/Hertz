@@ -23,16 +23,24 @@ public class Track {
     private final SimpleObjectProperty<Image> albumArt;
 
     public Track(File file) {
+        this(file, FilenameUtils.removeExtension(file.getName()), null, null, null);
+    }
+
+    public Track(File file, String title, String artist, String album, String year) {
         this.file = file;
 
-        this.title = new SimpleStringProperty(FilenameUtils.removeExtension(file.getName()));
-        this.artist = new SimpleStringProperty();
-        this.album = new SimpleStringProperty();
-        this.year = new SimpleStringProperty();
+        this.title = new SimpleStringProperty(title);
+        this.artist = new SimpleStringProperty(artist);
+        this.album = new SimpleStringProperty(album);
+        this.year = new SimpleStringProperty(year);
         this.albumArt = new SimpleObjectProperty<>();
 
         this.media = new Media(file.toURI().toString());
 
+        updateMetadata();
+    }
+
+    private void updateMetadata() {
         this.media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if (change.wasAdded()) {
                 String key = change.getKey();

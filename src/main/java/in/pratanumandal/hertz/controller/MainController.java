@@ -2,15 +2,15 @@ package in.pratanumandal.hertz.controller;
 
 import in.pratanumandal.hertz.common.Track;
 import in.pratanumandal.hertz.utils.GUIUtils;
+import in.pratanumandal.hertz.utils.Utils;
+import in.pratanumandal.hertz.utils.debouncer.Debouncer;
 import in.pratanumandal.hertz.utils.detachabletabs.TabPaneDetacher;
+import in.pratanumandal.hertz.utils.lyrics.Genius;
 import in.pratanumandal.hertz.visualization.AmoebaVisualization;
 import in.pratanumandal.hertz.visualization.BarsVisualization;
 import in.pratanumandal.hertz.visualization.FireVisualization;
 import in.pratanumandal.hertz.visualization.Visualizations;
 import in.pratanumandal.hertz.visualization.WavesVisualization;
-import in.pratanumandal.hertz.utils.Utils;
-import in.pratanumandal.hertz.utils.debouncer.Debouncer;
-import in.pratanumandal.hertz.utils.lyrics.Genius;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -226,6 +226,7 @@ public class MainController extends AbstractController {
         });
 
         tracksList = FXCollections.observableArrayList();
+        Utils.readTracks(tracksList);
 
         FilteredList<Track> filteredTracksList = new FilteredList<>(tracksList);
         search.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -347,6 +348,7 @@ public class MainController extends AbstractController {
             recursivelyAddFiles(files);
             libraryLoadingPane.setVisible(false);
             Platform.runLater(() -> filesLoaded.set(0));
+            Utils.writeTracks(tracksList);
         });
         thread.setDaemon(true);
         thread.start();

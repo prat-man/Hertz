@@ -12,6 +12,8 @@ module in.pratanumandal.hertz {
     requires org.apache.commons.lang3;
     requires commons.math3;
 
+    requires com.google.gson;
+
     requires GeniusLyricsAPI;
 
 
